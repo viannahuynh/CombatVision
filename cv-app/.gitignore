@@ -1,0 +1,53 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules
+
+# Build
+dist
+dist-ssr
+.vite/
+
+# Local
+*.local
+
+# Environment
+.env
+.env.*
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Tests
+coverage/
+*.coverage*
+
+# Server (if you add backend)
+server/node_modules/
+server/dist/
+server/logs/
+server/*.log
+server/.env
+server/*.pid
+
+# Models & media (track with Git LFS or host elsewhere)
+public/models/*.onnx
+public/models/*.pt
+public/models/*.tflite
+public/models/*.bin
+public/media/*
