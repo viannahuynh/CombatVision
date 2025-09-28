@@ -1,4 +1,4 @@
-// ==================== HAND VIS (pink/blue halos) ====================
+// HAND VIS 
 const HAND_CONNECTIONS = [
   [0,1],[1,2],[2,3],[3,4],
   [0,5],[5,6],[6,7],[7,8],
@@ -23,21 +23,14 @@ export function drawHands(ctx, hres, W, H) {
     ctx.fillStyle = label === 'Right' ? 'rgba(0,234,255,0.20)' : 'rgba(255,77,255,0.20)'
     ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.fill()
 
-    // fingertip (index = 8)
+    // fingertip 
     const tip = pts[8]
     ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(tip.x, tip.y, 8, 0, Math.PI*2); ctx.fill()
     ctx.strokeStyle = color; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(tip.x, tip.y, 10, 0, Math.PI*2); ctx.stroke()
-
-    // (skeleton omitted for perf)
-    // ctx.strokeStyle = color; ctx.lineWidth = 3
-    // HAND_CONNECTIONS.forEach(([a,b]) => {
-    //   const pa = pts[a], pb = pts[b]
-    //   ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y); ctx.stroke()
-    // })
   }
 }
 
-// ==================== POSE HELPERS ====================
+// POSE HELPERS 
 export const L_SH=11, R_SH=12, L_HIP=23, R_HIP=24
 export function centerFromPose(lm){
   const pts = [lm[L_SH], lm[R_SH], lm[L_HIP], lm[R_HIP]].filter(Boolean)
@@ -82,7 +75,7 @@ export function drawBoxOutline(ctx, b, color){
 export function avgX(lm){ return lm.reduce((s,p)=>s+p.x,0)/lm.length }
 export function assignLeftRight(persons){ const ps = persons.slice().sort((a,b)=>avgX(a)-avgX(b)); return [ps[0]||null, ps[1]||null] }
 
-// ==================== HANDS & SWORDS HELPERS ====================
+// HANDS & SWORDS HELPERS 
 export function handsToPixel(hres, W, H){
   const out=[]
   const L = hres?.landmarks || []
@@ -140,7 +133,7 @@ export function placeSwordFixedAtPalm(imgEl, handPts, fixedLenPx){
 }
 export function hideSword(imgEl){ if (imgEl) imgEl.style.display = 'none' }
 
-// ==================== GEOMETRY: line ↔ rect ====================
+// GEOMETRY
 export function pointInRect(x, y, r){ return x>=r.x && y>=r.y && x<=r.x+r.w && y<=r.y+r.h }
 export function segIntersect(ax,ay,bx,by, cx,cy,dx,dy){
   const s1x = bx-ax, s1y = by-ay
@@ -161,7 +154,7 @@ export function lineIntersectsRect(x1,y1,x2,y2, r){
   return false
 }
 
-// ==================== CANVAS IMAGE HELPERS ====================
+// CANVAS IMAGE HELPERS 
 export function makeImage(src){
   const img = new Image()
   img.src = src

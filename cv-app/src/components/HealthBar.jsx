@@ -1,8 +1,6 @@
 // src/components/HealthBarSprites.jsx
 import React from 'react'
 
-// ===== Replace these imports with your actual sprite files =====
-// Expecting 11 frames per player: 0..10  (10 = full, 0 = empty/KO)
 // Player 1
 import p1_0  from '../assets/healthbar/hpblue0.png'
 import p1_1  from '../assets/healthbar/hpblue1.png'
@@ -28,20 +26,17 @@ import p2_7  from '../assets/healthbar/hpred7.png'
 import p2_8  from '../assets/healthbar/hpred8.png'
 import p2_9  from '../assets/healthbar/hpred9.png'
 import p2_10 from '../assets/healthbar/hpredfull.png'
-// ===============================================================
 
 const SPRITES_P1 = [p1_0,p1_1,p1_2,p1_3,p1_4,p1_5,p1_6,p1_7,p1_8,p1_9,p1_10]
 const SPRITES_P2 = [p2_0,p2_1,p2_2,p2_3,p2_4,p2_5,p2_6,p2_7,p2_8,p2_9,p2_10]
 
-// Map hp → sprite index (10 buckets → per-hit change)
-//  - idx = 10 when full, 0 when empty.
-//  - If your game is exactly 10 hits to KO, consider HIT_DAMAGE = max/10.
+// Map hp 
 function hpToIndex(hp, max) {
   const totalBuckets = 10
   const ratio = Math.max(0, Math.min(1, hp / max))
-  // Ceil so a small decrease immediately steps down a sprite
+  // Ceiling so a small decrease immediately steps down a sprite
   const idx = Math.ceil(ratio * totalBuckets)
-  return idx // 0..10
+  return idx 
 }
 
 export default function HealthBarSprites({ hp1, hp2, max }) {

@@ -4,7 +4,7 @@ export default function Home() {
   const nav = useNavigate()
 
   const handleClick = () => {
-    nav("/play") // go straight to VisionApp
+    nav("/play") 
   }
 
   return (

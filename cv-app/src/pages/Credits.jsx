@@ -4,7 +4,7 @@ export default function Credits() {
     <div style={{ minHeight:"100vh", display:"grid", placeItems:"center", textAlign:"center" }}>
       <div>
         <h2>Credits</h2>
-        <p>Team names go here.</p>
+        <p>names</p>
         <Link to="/">Back</Link>
       </div>
     </div>

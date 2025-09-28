@@ -19,7 +19,7 @@ import {
   lineIntersectsRect, makeImage, drawCenteredImage
 } from './cv/helpers'
 
-/* ==================== CONFIG ==================== */
+/* CONFIG */
 const POSE_NUM_PEOPLE = 2
 const HANDS_NUM = 4
 
@@ -38,14 +38,14 @@ const MAX_HP = 100
 const HIT_DAMAGE = 10
 const HIT_COOLDOWN_MS = 250
 
-/* ==================== APP ==================== */
+/* APP */
 function VisionApp() {
   const videoRef  = useRef(null)
   const canvasRef = useRef(null)
   const [ready, setReady] = useState(false)
   const [status, setStatus] = useState('Loading models…')
 
-  // load saber GIFs once
+  // load saber GIFs 
   const saberBlueImg = makeImage(lightsaber)
   const saberRedImg = makeImage(lightsaber2)
 
@@ -69,13 +69,12 @@ function VisionApp() {
   // Winner + KO state
   const [winner, setWinner] = useState(null)
 
-  // 🔊 Audio refs
+  // Audio refs
   const bgmRef = useRef(null)
   const [needsAudioStart, setNeedsAudioStart] = useState(false)
   const koAudioRef = useRef(null)
 
   useEffect(() => {
-    // build audio once
     const bgm = new Audio(fightsong)
     bgm.loop = true
     bgm.volume = 0.6
@@ -135,7 +134,7 @@ function VisionApp() {
     bgmRef.current?.play().catch(() => setNeedsAudioStart(true))
   }
 
-  // ====== RESET MATCH (expanded) ======
+  // RESET MATCH (expanded) 
   function resetMatch() {
     // HP
     setHp1(MAX_HP)
@@ -156,7 +155,7 @@ function VisionApp() {
     p1BoxRef.current = null
     p2BoxRef.current = null
 
-    // optional: restart BGM
+    // bgm restart
     try {
       if (bgmRef?.current) {
         bgmRef.current.currentTime = 0
@@ -168,7 +167,7 @@ function VisionApp() {
     }
   }
 
-  // ====== Keyboard: press "R" to reset ======
+  // Keyboard: press "R" to reset 
   useEffect(() => {
     const onKeyDown = (e) => {
       const tag = (e.target?.tagName || '').toLowerCase()
@@ -205,7 +204,7 @@ function VisionApp() {
       setReady(true)
       setStatus('Stand side-by-side')
 
-      // Camera
+      // Camera logic
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { width: 1280, height: 720 },
       })
@@ -291,7 +290,7 @@ function VisionApp() {
           p2BoxRef.current = null
         }
 
-        if (persons.length < 2) setStatus('Need two people visible')
+        if (persons.length < 2) setStatus('Need two people in frame')
         drawHands(ctx, hres, c.width, c.height)
 
         const palmCenterFromPts = pts => {
@@ -407,10 +406,10 @@ function VisionApp() {
       }}
     >
       <div style={{ position: 'relative', width: '80vw', maxWidth: 1280 }}>
-        {/* HUD: health bars */}
+        {/* health bars */}
         <HealthBarSprites hp1={hp1} hp2={hp2} max={MAX_HP} />
 
-        {/* Start audio button */}
+        {/* audio toggle button */}
         {needsAudioStart && !winner && (
           <button
             onClick={startAudioManually}
@@ -428,7 +427,7 @@ function VisionApp() {
               cursor: 'pointer',
             }}
           >
-            ▶ Enable Sound
+            ▶ Toggle Audio
           </button>
         )}
 
@@ -500,19 +499,6 @@ function VisionApp() {
 }
 
 export default function App() {
-  // const [showLanding, setShowLanding] = useState(true)
-  // const navigate = useNavigate()
-
-  // useEffect(() => {
-  //   if (!showLanding) {
-  //     navigate('/', { replace: true })
-  //   }
-  // }, [showLanding, navigate])
-
-  // if (showLanding) {
-  //   return <Landing onContinue={() => setShowLanding(false)} />
-  // }
-
   return (
     <Routes>
       <Route path="/" element={<Landing />} />

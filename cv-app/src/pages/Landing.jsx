@@ -4,7 +4,7 @@ export default function Landing() {
   const navigate = useNavigate()
 
   const handleClick = () => {
-    navigate('/home') // or wherever your Home page is mounted
+    navigate('/home') 
   }
 
   return (
