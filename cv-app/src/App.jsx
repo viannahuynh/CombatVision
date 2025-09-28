@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import { FilesetResolver, HandLandmarker, PoseLandmarker } from '@mediapipe/tasks-vision'
+import Landing from './pages/Landing.jsx'
+import Home from './pages/Home.jsx'
+import Credits from './pages/Credits.jsx'
+import Exit from './pages/Exit.jsx'
 import lightsaber from './assets/lightsaber.gif'
 import lightsaber2 from './assets/lightsaber2.gif'
 import redlightsaber from './assets/redlightsaber.gif'
@@ -35,7 +40,7 @@ const HIT_COOLDOWN_MS = 250
 
 /* ==================== APP ==================== */
 export default function App() {
-  const videoRef = useRef(null)
+  const videoRef  = useRef(null)
   const canvasRef = useRef(null)
   const [ready, setReady] = useState(false)
   const [status, setStatus] = useState('Loading models…')
@@ -491,5 +496,29 @@ export default function App() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function App() {
+  const [showLanding, setShowLanding] = useState(true)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!showLanding) {
+      navigate('/', { replace: true })
+    }
+  }, [showLanding, navigate])
+
+  if (showLanding) {
+    return <Landing onContinue={() => setShowLanding(false)} />
+  }
+
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/play" element={<VisionApp />} />
+      <Route path="/credits" element={<Credits />} />
+      <Route path="/exit" element={<Exit />} />
+    </Routes>
   )
 }
