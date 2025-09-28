@@ -500,25 +500,24 @@ function VisionApp() {
 }
 
 export default function App() {
-  const [showLanding, setShowLanding] = useState(true)
-  const navigate = useNavigate()
+  // const [showLanding, setShowLanding] = useState(true)
+  // const navigate = useNavigate()
 
-  useEffect(() => {
-    if (!showLanding) {
-      navigate('/', { replace: true })
-    }
-  }, [showLanding, navigate])
+  // useEffect(() => {
+  //   if (!showLanding) {
+  //     navigate('/', { replace: true })
+  //   }
+  // }, [showLanding, navigate])
 
-  if (showLanding) {
-    return <Landing onContinue={() => setShowLanding(false)} />
-  }
+  // if (showLanding) {
+  //   return <Landing onContinue={() => setShowLanding(false)} />
+  // }
 
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Landing />} />
+      <Route path="/home" element={<Home />} />
       <Route path="/play" element={<VisionApp />} />
-      <Route path="/credits" element={<Credits />} />
-      <Route path="/exit" element={<Exit />} />
     </Routes>
   )
 }

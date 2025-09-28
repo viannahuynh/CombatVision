@@ -1,24 +1,15 @@
-import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-export default function Landing({ onContinue }) {
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.code === 'Space') {
-        event.preventDefault()
-        onContinue?.()
-      }
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [onContinue])
+export default function Landing() {
+  const navigate = useNavigate()
 
   const handleClick = () => {
-    onContinue?.()
+    navigate('/home') // or wherever your Home page is mounted
   }
 
   return (
     <div
+      onClick={handleClick}
       style={{
         minHeight: '100vh',
         width: '100%',
@@ -29,17 +20,11 @@ export default function Landing({ onContinue }) {
         display: 'grid',
         placeItems: 'center',
         padding: 24,
-      }}
-      onClick={handleClick}
-      onKeyDown={(event) => {
-        if (event.code === 'Space' || event.key === 'Enter') {
-          event.preventDefault()
-          onContinue?.()
-        }
+        cursor: 'pointer',
       }}
       role="button"
       tabIndex={0}
     >
     </div>
-  );
+  )
 }
