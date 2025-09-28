@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import { FilesetResolver, HandLandmarker, PoseLandmarker } from '@mediapipe/tasks-vision'
+import Landing from './pages/Landing.jsx'
+import Home from './pages/Home.jsx'
+import Credits from './pages/Credits.jsx'
+import Exit from './pages/Exit.jsx'
 
 /* ==================== CONFIG ==================== */
 const POSE_NUM_PEOPLE = 2
@@ -110,7 +115,7 @@ function assignLeftRight(persons){
 }
 
 /* ==================== APP ==================== */
-export default function App() {
+function VisionApp() {
   const videoRef  = useRef(null)
   const canvasRef = useRef(null)
   const [ready, setReady]   = useState(false)
@@ -219,5 +224,29 @@ export default function App() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function App() {
+  const [showLanding, setShowLanding] = useState(true)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!showLanding) {
+      navigate('/', { replace: true })
+    }
+  }, [showLanding, navigate])
+
+  if (showLanding) {
+    return <Landing onContinue={() => setShowLanding(false)} />
+  }
+
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/play" element={<VisionApp />} />
+      <Route path="/credits" element={<Credits />} />
+      <Route path="/exit" element={<Exit />} />
+    </Routes>
   )
 }
