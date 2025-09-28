@@ -49,7 +49,7 @@ function VisionApp() {
   const saberBlueImg = makeImage(lightsaber)
   const saberRedImg = makeImage(lightsaber2)
 
-  // Fixed-size box + smoothed centers
+  // Fixed-size hitboxes
   const p1FixedSizeRef = useRef(null)
   const p2FixedSizeRef = useRef(null)
   const p1CenterEMA = useRef(new Ema2D(0.3))
@@ -128,13 +128,13 @@ function VisionApp() {
     }
   }, [winner])
 
-  // Manual trigger for audio
+  // toggle for audio
   function startAudioManually() {
     setNeedsAudioStart(false)
     bgmRef.current?.play().catch(() => setNeedsAudioStart(true))
   }
 
-  // RESET MATCH (expanded) 
+  // RESET MATCH 
   function resetMatch() {
     // HP
     setHp1(MAX_HP)
@@ -151,7 +151,7 @@ function VisionApp() {
     lastHitP1Ref.current = 0
     lastHitP2Ref.current = 0
 
-    // nuke current boxes (avoid stale collisions)
+    // nuke current hitboxes
     p1BoxRef.current = null
     p2BoxRef.current = null
 
