@@ -39,7 +39,7 @@ const HIT_DAMAGE = 10
 const HIT_COOLDOWN_MS = 250
 
 /* ==================== APP ==================== */
-export default function App() {
+function VisionApp() {
   const videoRef  = useRef(null)
   const canvasRef = useRef(null)
   const [ready, setReady] = useState(false)
